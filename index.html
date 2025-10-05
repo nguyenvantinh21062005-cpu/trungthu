@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>B·nh Trung Thu Nh‚n Tr·i Tim</title>
+  <title>B√°nh Trung Thu Nh√¢n Tr√°i Tim</title>
   <style>
     body {
       margin: 0;
@@ -18,7 +18,7 @@
     }
     #heart-container, #filling-canvas {
       position: absolute;
-      top: 55%; /* h xung mt ch˙t */
+      top: 55%; /* h xung mt ch√∫t */
       left: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
@@ -49,24 +49,24 @@
 </head>
 <body>
   <canvas id="cake" width="600" height="600"></canvas>
-  <button id="cutButton"> Ct B·nh Xem Nh‚n</button>
+  <button id="cutButton">C·∫Øt B√°nh Xem Nh√¢n</button>
 
   <!-- Nhc Trung Thu -->
   <audio id="bg-music" preload="auto" loop>
     <source src="music.mp3" type="audio/mpeg">
-    TrÏnh duyt ca bn khÙng h tr ph·t nhc.
+    Tr√¨nh duyt ca bn kh√¥ng h tr ph√°t nhc.
   </audio>
 
-  <!-- Canvas nh‚n chy -->
+  <!-- Canvas nh√¢n chy -->
   <canvas id="filling-canvas" width="280" height="280"></canvas>
 
-  <!-- Canvas tr·i tim hng -->
+  <!-- Canvas tr√°i tim hng -->
   <div id="heart-container">
     <canvas id="pinkboard"></canvas>
   </div>
 
 <script>
-/* ---------- V b·nh y  ---------- */
+/* ---------- V b√°nh y  ---------- */
 const canvas = document.getElementById("cake");
 const ctx = canvas.getContext("2d");
 const cx = 300, cy = 300, r = 180;
@@ -114,14 +114,14 @@ function drawWholeCake(context) {
   context.strokeStyle = "#d1902e";
   context.stroke();
 
-  // VÚng trÚn bÍn trong
+  // V√≤ng tr√≤n b√™n trong
   context.beginPath();
   context.arc(cx, cy, 120, 0, Math.PI*2);
   context.lineWidth = 10;
   context.strokeStyle = "#d1902e";
   context.stroke();
 
-  // Hoa vn 8 c·nh
+  // Hoa vn 8 c√°nh
   context.strokeStyle = "#d1902e";
   context.lineWidth = 10;
   for(let i=0; i<8; i++){
@@ -137,7 +137,7 @@ function drawWholeCake(context) {
     context.restore();
   }
 
-  // HÏnh vuÙng trung t‚m + du cng
+  // H√¨nh vu√¥ng trung t√¢m + du cng
   const s = 50;
   context.strokeStyle = "#d1902e";
   context.lineWidth = 10;
@@ -210,10 +210,10 @@ function startBeatWithMusic(){
       bass = bass / count / 255;
       let scale = 1 + bass * 0.4;
 
-      // Tim ngo‡i (particle)
+      // Tim ngo√†i (particle)
       heartContainer.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
-      // Tim nh‚n hng + chy
+      // Tim nh√¢n hng + chy
       fillingCanvas.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
     requestAnimationFrame(animateBeat);
@@ -236,7 +236,7 @@ document.getElementById("cutButton").addEventListener("click", () => {
 
 drawScene(0);
 
-/* ---------- Hiu ng nh‚n tr·i tim hng ---------- */
+/* ---------- Hiu ng nh√¢n tr√°i tim hng ---------- */
 const fillCanvas = document.getElementById('filling-canvas');
 const fillCtx = fillCanvas.getContext('2d');
 let fillRadius = 0;
@@ -269,7 +269,7 @@ function animateFilling(){
   drawHeartPath(fillCtx);
   fillCtx.clip();
 
-  // gradient m‡u hng
+  // gradient m√†u hng
   const grad = fillCtx.createRadialGradient(
     fillCanvas.width/2, fillCanvas.height/2, 0,
     fillCanvas.width/2, fillCanvas.height/2, fillRadius
@@ -298,11 +298,11 @@ function drawLoveText(){
   fillCtx.fillStyle = "#fff";
   fillCtx.font = "bold 12px Arial";  
   fillCtx.textAlign = "center";
-  fillCtx.fillText("Ch˙c Em Trung Thu Vui V", fillCanvas.width/2, fillCanvas.height/2 - 15); 
+  fillCtx.fillText("Ch√∫c Em Trung Thu Vui V·∫ª", fillCanvas.width/2, fillCanvas.height/2 - 15); 
   fillCtx.restore();
 }
 
-/* ---------- Tr·i tim particle ---------- */
+/* ---------- Tr√°i tim particle ---------- */
 function showHeartParticle(){
   document.getElementById('heart-container').style.display = 'flex';
   initParticleHeart();
@@ -366,4 +366,5 @@ function initParticleHeart(){
 }
 </script>
 </body>
+
 </html>
