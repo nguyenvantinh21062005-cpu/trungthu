@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bánh Trung Thu Nhân Trái Tim</title>
   <style>
     body {
@@ -18,7 +19,7 @@
     }
     #heart-container, #filling-canvas {
       position: absolute;
-      top: 55%; /* h xung mt chút */
+      top: 55%;
       left: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
@@ -49,24 +50,21 @@
 </head>
 <body>
   <canvas id="cake" width="600" height="600"></canvas>
-  <button id="cutButton">Cắt Bánh Xem Nhân</button>
+  <button id="cutButton">🍰 Cắt Bánh Xem Nhân</button>
 
-  <!-- Nhc Trung Thu -->
   <audio id="bg-music" preload="auto" loop>
     <source src="music.mp3" type="audio/mpeg">
-    Trình duyt ca bn không h tr phát nhc.
+    Trình duyệt của bạn không hỗ trợ phát nhạc.
   </audio>
 
-  <!-- Canvas nhân chy -->
   <canvas id="filling-canvas" width="280" height="280"></canvas>
 
-  <!-- Canvas trái tim hng -->
   <div id="heart-container">
     <canvas id="pinkboard"></canvas>
   </div>
 
 <script>
-/* ---------- V bánh y  ---------- */
+/* ---------- Vẽ bánh đầy đủ ---------- */
 const canvas = document.getElementById("cake");
 const ctx = canvas.getContext("2d");
 const cx = 300, cy = 300, r = 180;
@@ -105,7 +103,7 @@ function drawScene(offset = 0) {
 }
 
 function drawWholeCake(context) {
-  // Vin scallop
+  // Viền scallop
   context.beginPath();
   drawScallop(context, cx, cy, r, 16);
   context.fillStyle = "#e3a63b";
@@ -114,6 +112,15 @@ function drawWholeCake(context) {
   context.strokeStyle = "#d1902e";
   context.stroke();
 
+  // Thêm vân bánh (đường kẻ nhỏ bên trong)
+  for (let rr = 130; rr < r - 10; rr += 8) {
+    context.beginPath();
+    context.arc(cx, cy, rr, 0, Math.PI * 2);
+    context.strokeStyle = "rgba(209,144,46,0.25)";
+    context.lineWidth = 2;
+    context.stroke();
+  }
+
   // Vòng tròn bên trong
   context.beginPath();
   context.arc(cx, cy, 120, 0, Math.PI*2);
@@ -121,7 +128,7 @@ function drawWholeCake(context) {
   context.strokeStyle = "#d1902e";
   context.stroke();
 
-  // Hoa vn 8 cánh
+  // Hoa văn 8 cánh
   context.strokeStyle = "#d1902e";
   context.lineWidth = 10;
   for(let i=0; i<8; i++){
@@ -137,7 +144,7 @@ function drawWholeCake(context) {
     context.restore();
   }
 
-  // Hình vuông trung tâm + du cng
+  // Hình vuông trung tâm + dấu cộng
   const s = 50;
   context.strokeStyle = "#d1902e";
   context.lineWidth = 10;
@@ -186,7 +193,7 @@ function animateCut() {
   requestAnimationFrame(animateCut);
 }
 
-/* --- Nhc + tim p --- */
+/* --- Nhạc + tim đập --- */
 let audioCtx, analyser, freqData;
 function setupAudioAnalyser(){
   const music = document.getElementById("bg-music");
@@ -210,10 +217,7 @@ function startBeatWithMusic(){
       bass = bass / count / 255;
       let scale = 1 + bass * 0.4;
 
-      // Tim ngoài (particle)
       heartContainer.style.transform = `translate(-50%, -50%) scale(${scale})`;
-
-      // Tim nhân hng + chy
       fillingCanvas.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
     requestAnimationFrame(animateBeat);
@@ -236,7 +240,7 @@ document.getElementById("cutButton").addEventListener("click", () => {
 
 drawScene(0);
 
-/* ---------- Hiu ng nhân trái tim hng ---------- */
+/* ---------- Hiệu ứng nhân trái tim hồng ---------- */
 const fillCanvas = document.getElementById('filling-canvas');
 const fillCtx = fillCanvas.getContext('2d');
 let fillRadius = 0;
@@ -269,7 +273,6 @@ function animateFilling(){
   drawHeartPath(fillCtx);
   fillCtx.clip();
 
-  // gradient màu hng
   const grad = fillCtx.createRadialGradient(
     fillCanvas.width/2, fillCanvas.height/2, 0,
     fillCanvas.width/2, fillCanvas.height/2, fillRadius
@@ -281,6 +284,7 @@ function animateFilling(){
   fillCtx.beginPath();
   fillCtx.arc(fillCanvas.width/2, fillCanvas.height/2, fillRadius, 0, Math.PI*2);
   fillCtx.fill();
+  
   fillCtx.restore();
 
   fillRadius += 3;
@@ -296,9 +300,9 @@ function animateFilling(){
 function drawLoveText(){
   fillCtx.save();
   fillCtx.fillStyle = "#fff";
-  fillCtx.font = "bold 12px Arial";  
+  fillCtx.font = "bold 14px Arial";
   fillCtx.textAlign = "center";
-  fillCtx.fillText("Chúc Em Trung Thu Vui Vẻ", fillCanvas.width/2, fillCanvas.height/2 - 15); 
+  fillCtx.fillText("Chúc Em Trung Thu Vui Vẻ 💖", fillCanvas.width/2, fillCanvas.height/2 - 15);
   fillCtx.restore();
 }
 
@@ -308,6 +312,7 @@ function showHeartParticle(){
   initParticleHeart();
 }
 
+/* --- Code particle giữ nguyên --- */
 function initParticleHeart(){
   const settings={particles:{length:1200,duration:2,velocity:70,effect:-1.3,size:8}};
   var Point=function(x,y){this.x=x||0;this.y=y||0};
@@ -366,5 +371,4 @@ function initParticleHeart(){
 }
 </script>
 </body>
-
 </html>
